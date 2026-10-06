@@ -1,0 +1,129 @@
+/*
+ * Design tokens, measured from the original Squarespace site.
+ *
+ * Type sizes scale with the viewport the same way Squarespace does:
+ *   size = (value - 1) × unit + 1rem
+ * where `unit` is 1.2% of the viewport width on desktop (capped at an 1800px page)
+ * and 1.2% of the viewport height on mobile.
+ */
+@import '@fontsource/public-sans/400.css';
+@import '@fontsource/public-sans/400-italic.css';
+@import '@fontsource/public-sans/500.css';
+@import '@fontsource/public-sans/500-italic.css';
+@import '@fontsource/public-sans/700.css';
+@import '@fontsource/public-sans/700-italic.css';
+
+:root {
+  /* Palette */
+  --white: #fff;
+  --black: #000;
+  --accent: #fbaf17;
+  --light-accent: #dfe0e1;
+  --dark-accent: #38383b;
+  --field-fill: #fafafa;
+
+  /* Fonts */
+  --font: 'Public Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --heading-weight: 500;
+  --body-weight: 400;
+  /* Public Sans is a touch wider than the original Aktiv Grotesk; these
+     letter-spacings bring line lengths (and so line breaks) back in step. */
+  --tracking-400: -0.0105em;
+  --tracking-500: -0.0068em;
+  --tracking-700: 0.0018em;
+
+  /* Layout */
+  --max-page-width: 1800px;
+  --page-gutter: 4vw;
+  --grid-gap: 11px;
+  --mobile-gutter: 6vw;
+  /* Height of the fixed site header */
+  --header-h: calc(var(--mobile-gutter) * 2 + 37px);
+
+  /* Type scale units (mobile first) */
+  --type-unit: calc(0.012 * min(100vh, 900px));
+  --type-unit-uncapped: calc(0.012 * min(100vh, 900px));
+  --space-unit: 1vh;
+
+  --h1-size: calc(2 * var(--type-unit) + 1rem);
+  --h2-size: calc(1.6 * var(--type-unit) + 1rem);
+  --h3-size: calc(0.8 * var(--type-unit) + 1rem);
+  --h4-size: calc(0.2 * var(--type-unit) + 1rem);
+  --large-size: calc(0.1 * var(--type-unit) + 1rem);
+  --normal-size: calc(-0.1 * var(--type-unit-uncapped) + 1rem);
+  --small-size: calc(-0.2 * var(--type-unit-uncapped) + 1rem);
+  --meta-size: var(--normal-size);
+
+  --h1-line: calc(1.3em * (1 + (1 - 3) / 25));
+  --h2-line: calc(1.3em * (1 + (1 - 2.6) / 25));
+  --h3-line: calc(1.3em * (1 + (1 - 1.8) / 25));
+  --h4-line: calc(1.3em * (1 + (1 - 1.2) / 25));
+  --body-line: 1.4em;
+
+  --button-size: 1rem;
+  --button-pad-y: 1.3rem;
+  --button-pad-x: 2.171rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --type-unit: calc(0.012 * min(100vw, var(--max-page-width)));
+    --type-unit-uncapped: 1.2vw;
+    --space-unit: 1vw;
+    --header-h: calc(2vw + 61px);
+  }
+}
+
+/*
+ * Section colour themes. Add data-theme="…" to a section (PageSection does this).
+ */
+[data-theme='white'],
+[data-theme='white-bold'] {
+  --bg: var(--white);
+  --text: var(--black);
+  --heading: var(--black);
+  --button-bg: var(--black);
+  --button-text: var(--white);
+  --line: var(--black);
+}
+[data-theme='light'],
+[data-theme='light-bold'] {
+  --bg: var(--light-accent);
+  --text: var(--black);
+  --heading: var(--black);
+  --button-bg: var(--black);
+  --button-text: var(--white);
+  --line: var(--black);
+}
+[data-theme='dark'] {
+  --bg: var(--dark-accent);
+  --text: var(--white);
+  --heading: var(--white);
+  --button-bg: var(--accent);
+  --button-text: var(--black);
+  --line: var(--white);
+}
+[data-theme='black'] {
+  --bg: var(--black);
+  --text: var(--white);
+  --heading: var(--white);
+  --button-bg: var(--accent);
+  --button-text: var(--black);
+  --line: var(--white);
+}
+[data-theme='black-bold'] {
+  --bg: var(--black);
+  --text: var(--white);
+  --heading: var(--accent);
+  --button-bg: var(--accent);
+  --button-text: var(--black);
+  --line: var(--accent);
+}
+[data-theme='bright-inverse'] {
+  --bg: var(--black);
+  --text: var(--accent);
+  --heading: var(--accent);
+  --button-bg: var(--accent);
+  --button-text: var(--black);
+  --line: var(--accent);
+}

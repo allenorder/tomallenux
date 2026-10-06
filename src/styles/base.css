@@ -1,0 +1,159 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-weight: var(--body-weight);
+  font-size: var(--normal-size);
+  line-height: var(--body-line);
+  letter-spacing: var(--tracking-400);
+  color: var(--black);
+  background: var(--light-accent);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--white);
+  color: var(--black);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/*
+ * Rich text (the contents of a TextBlock).
+ * Paragraph modifiers: .text-large, .text-small
+ * Inline colour helpers: .text-white, .text-dark, .highlight
+ */
+.rte {
+  color: var(--text);
+  overflow-wrap: break-word;
+}
+.rte h1,
+.rte h2,
+.rte h3,
+.rte h4 {
+  margin: 2rem 0;
+  color: var(--heading);
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--tracking-500);
+}
+.rte h1 {
+  font-size: var(--h1-size);
+  line-height: var(--h1-line);
+}
+.rte h2 {
+  font-size: var(--h2-size);
+  line-height: var(--h2-line);
+}
+.rte h3 {
+  font-size: var(--h3-size);
+  line-height: var(--h3-line);
+}
+.rte h4 {
+  font-size: var(--h4-size);
+  line-height: var(--h4-line);
+}
+.rte p,
+.rte li {
+  letter-spacing: var(--tracking-400);
+}
+.rte p {
+  margin: 1rem 0;
+  font-size: var(--normal-size);
+  line-height: var(--body-line);
+}
+.rte p.text-large {
+  font-size: var(--large-size);
+}
+.rte p.text-small {
+  font-size: var(--small-size);
+}
+.rte ul,
+.rte ol {
+  margin: 1em 0;
+  padding-left: 40px;
+}
+.rte li > p {
+  margin: 0.5em 0;
+}
+.rte > :first-child {
+  margin-top: 0;
+}
+.rte > :last-child {
+  margin-bottom: 0;
+}
+.rte strong,
+.rte b {
+  font-weight: 700;
+  letter-spacing: var(--tracking-700);
+}
+.rte a {
+  color: inherit;
+  text-decoration: underline;
+}
+.rte .text-white {
+  color: var(--white);
+}
+.rte .text-dark {
+  color: var(--dark-accent);
+}
+.rte .highlight {
+  color: inherit;
+}
+
+/* Buttons (ButtonBlock and the contact form) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--button-pad-y) var(--button-pad-x);
+  border: 0;
+  border-radius: 0;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-family: var(--font);
+  font-size: var(--button-size);
+  font-weight: 500;
+  line-height: 1.2em;
+  letter-spacing: calc(0.02em + var(--tracking-500));
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+.btn:hover {
+  opacity: 0.8;
+}

@@ -16,10 +16,12 @@ const next = computed(() => nextProject(route.path.replace(/^\/|\/$/g, '')))
 </template>
 
 <style>
-.section.next-project {
-  border-top: 1px solid rgb(0 0 0 / 0.08);
-}
-.next-project .eyebrow + * {
-  margin-top: 0;
+@layer site {
+  .section.next-project {
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+  }
+  .next-project .eyebrow + * {
+    margin-top: 0;
+  }
 }
 </style>

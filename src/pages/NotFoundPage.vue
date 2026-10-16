@@ -19,7 +19,9 @@ usePageMeta({ title: 'Page not found' })
 </template>
 
 <style>
-.not-found {
-  min-height: 60vh;
+@layer site {
+  .not-found {
+    min-height: 60vh;
+  }
 }
 </style>

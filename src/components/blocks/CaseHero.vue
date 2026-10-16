@@ -37,7 +37,9 @@ withDefaults(
 </template>
 
 <style>
-.case-hero__intro {
-  margin-top: 1.5rem;
+@layer site {
+  .case-hero__intro {
+    margin-top: 1.5rem;
+  }
 }
 </style>

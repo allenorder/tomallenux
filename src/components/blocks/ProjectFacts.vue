@@ -15,23 +15,25 @@ defineProps<{ items: { label: string; value: string }[] }>()
 </template>
 
 <style>
-.facts {
-  margin-block: 0;
-}
-.facts__item {
-  border-top: 2px solid var(--amber);
-  padding-top: 1rem;
-}
-.facts__label {
-  margin-bottom: 0.4rem;
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.facts__value {
-  margin: 0;
-  font-size: var(--fs-lead);
-  line-height: 1.45;
+@layer site {
+  .facts {
+    margin-block: 0;
+  }
+  .facts__item {
+    border-top: 2px solid var(--amber);
+    padding-top: 1rem;
+  }
+  .facts__label {
+    margin-bottom: 0.4rem;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .facts__value {
+    margin: 0;
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+  }
 }
 </style>

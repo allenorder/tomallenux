@@ -78,64 +78,66 @@ watch(() => route.fullPath, () => (drawer.value = false))
 </template>
 
 <style>
-.site-header.v-app-bar {
-  border-bottom: 3px solid var(--amber);
-  background: rgb(255 255 255 / 0.92);
-  backdrop-filter: saturate(1.4) blur(10px);
-}
-.site-header .v-toolbar__content {
-  height: var(--header-h) !important;
-}
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: calc(1200px + 2 * var(--gutter));
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-.site-header__logo {
-  display: block;
-  line-height: 0;
-}
-.site-header__logo img {
-  width: auto;
-  height: 40px;
-}
-.site-header__nav {
-  gap: 2.25rem;
-}
-.site-header__link {
-  position: relative;
-  padding: 0.35rem 0;
-  color: var(--black);
-  font-weight: 500;
-  text-decoration: none;
-}
-.site-header__link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
-}
-.site-header__link:hover::after,
-.site-header__link.is-active::after {
-  transform: scaleX(1);
-}
-.site-drawer__link .v-list-item-title {
-  font-size: 1.375rem;
-  font-weight: 500;
-}
-@media (min-width: 960px) {
+@layer site {
+  .site-header.v-app-bar {
+    border-bottom: 3px solid var(--amber);
+    background: rgb(255 255 255 / 0.92);
+    backdrop-filter: saturate(1.4) blur(10px);
+  }
+  .site-header .v-toolbar__content {
+    height: var(--header-h) !important;
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: calc(1200px + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .site-header__logo {
+    display: block;
+    line-height: 0;
+  }
   .site-header__logo img {
-    height: 56px;
+    width: auto;
+    height: 40px;
+  }
+  .site-header__nav {
+    gap: 2.25rem;
+  }
+  .site-header__link {
+    position: relative;
+    padding: 0.35rem 0;
+    color: var(--black);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .site-header__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .site-header__link:hover::after,
+  .site-header__link.is-active::after {
+    transform: scaleX(1);
+  }
+  .site-drawer__link .v-list-item-title {
+    font-size: 1.375rem;
+    font-weight: 500;
+  }
+  @media (min-width: 960px) {
+    .site-header__logo img {
+      height: 56px;
+    }
   }
 }
 </style>

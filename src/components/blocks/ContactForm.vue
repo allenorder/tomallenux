@@ -80,15 +80,17 @@ async function submit(event: SubmitEventPromise) {
 </template>
 
 <style>
-.contact-form.v-card {
-  padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
-  border: 1px solid rgb(0 0 0 / 0.08);
-  box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.25);
-}
-.contact-form__note {
-  margin: 0.75rem 0 0;
-  font-size: var(--fs-small);
-  color: var(--ink-soft);
-  text-align: center;
+@layer site {
+  .contact-form.v-card {
+    padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+    border: 1px solid rgb(0 0 0 / 0.08);
+    box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.25);
+  }
+  .contact-form__note {
+    margin: 0.75rem 0 0;
+    font-size: var(--fs-small);
+    color: var(--ink-soft);
+    text-align: center;
+  }
 }
 </style>

@@ -35,27 +35,29 @@ usePageMeta({
 </template>
 
 <style>
-.cv__portrait {
-  max-width: 180px;
-}
-.cv__name {
-  margin: 0;
-  font-size: var(--fs-h1);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-.cv__aside .lead {
-  margin: 0.25rem 0 0;
-  color: var(--ink-soft);
-}
-.cv__sheet.v-card {
-  padding: clamp(0.5rem, 0.2rem + 1vw, 1.25rem);
-  box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.3);
-}
-@media (min-width: 960px) {
-  .cv__sticky {
-    position: sticky;
-    top: calc(var(--header-h) + 2rem);
+@layer site {
+  .cv__portrait {
+    max-width: 180px;
+  }
+  .cv__name {
+    margin: 0;
+    font-size: var(--fs-h1);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .cv__aside .lead {
+    margin: 0.25rem 0 0;
+    color: var(--ink-soft);
+  }
+  .cv__sheet.v-card {
+    padding: clamp(0.5rem, 0.2rem + 1vw, 1.25rem);
+    box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.3);
+  }
+  @media (min-width: 960px) {
+    .cv__sticky {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
   }
 }
 </style>

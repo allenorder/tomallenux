@@ -65,43 +65,45 @@ const link = computed(() => {
 </template>
 
 <style>
-.figure {
-  margin: 0;
-}
-.figure__frame {
-  display: block;
-  overflow: hidden;
-  margin-inline: auto;
-  border-radius: var(--radius);
-}
-.figure.is-square .figure__frame {
-  border-radius: 0;
-}
-.figure.is-circle .figure__frame {
-  border-radius: 50%;
-}
-.figure.has-shadow .figure__frame {
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px -8px rgb(0 0 0 / 0.18);
-}
-.figure__frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.figure__frame.is-cropped img {
-  height: 100%;
-  object-fit: cover;
-}
-a.figure__frame {
-  transition: transform 0.2s ease;
-}
-a.figure__frame:hover {
-  transform: translateY(-2px);
-}
-.figure__caption {
-  margin: 0.85rem auto 0;
-  font-size: var(--fs-small);
-  opacity: 0.8;
-  text-align: center;
+@layer site {
+  .figure {
+    margin: 0;
+  }
+  .figure__frame {
+    display: block;
+    overflow: hidden;
+    margin-inline: auto;
+    border-radius: var(--radius);
+  }
+  .figure.is-square .figure__frame {
+    border-radius: 0;
+  }
+  .figure.is-circle .figure__frame {
+    border-radius: 50%;
+  }
+  .figure.has-shadow .figure__frame {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px -8px rgb(0 0 0 / 0.18);
+  }
+  .figure__frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .figure__frame.is-cropped img {
+    height: 100%;
+    object-fit: cover;
+  }
+  a.figure__frame {
+    transition: transform 0.2s ease;
+  }
+  a.figure__frame:hover {
+    transform: translateY(-2px);
+  }
+  .figure__caption {
+    margin: 0.85rem auto 0;
+    font-size: var(--fs-small);
+    opacity: 0.8;
+    text-align: center;
+  }
 }
 </style>

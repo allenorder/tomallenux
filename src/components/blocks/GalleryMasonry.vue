@@ -55,46 +55,48 @@ const mobile = computed(() => distribute(props.mobileColumns))
 </template>
 
 <style>
-.gallery {
-  --gap: 0.75rem;
-}
-.gallery__layout {
-  display: flex;
-  gap: var(--gap);
-}
-.gallery__layout.is-desktop {
-  display: none;
-}
-.gallery__col {
-  display: flex;
-  flex: 1 1 0;
-  flex-direction: column;
-  gap: var(--gap);
-  min-width: 0;
-}
-.gallery__item {
-  margin: 0;
-}
-.gallery__item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
-.gallery__item figcaption {
-  padding: 0.6rem 0.25rem 0.25rem;
-  font-size: var(--fs-small);
-  color: var(--ink-soft);
-}
-@media (min-width: 768px) {
+@layer site {
   .gallery {
-    --gap: 1.25rem;
+    --gap: 0.75rem;
   }
-  .gallery__layout.is-mobile {
-    display: none;
+  .gallery__layout {
+    display: flex;
+    gap: var(--gap);
   }
   .gallery__layout.is-desktop {
+    display: none;
+  }
+  .gallery__col {
     display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: var(--gap);
+    min-width: 0;
+  }
+  .gallery__item {
+    margin: 0;
+  }
+  .gallery__item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .gallery__item figcaption {
+    padding: 0.6rem 0.25rem 0.25rem;
+    font-size: var(--fs-small);
+    color: var(--ink-soft);
+  }
+  @media (min-width: 768px) {
+    .gallery {
+      --gap: 1.25rem;
+    }
+    .gallery__layout.is-mobile {
+      display: none;
+    }
+    .gallery__layout.is-desktop {
+      display: flex;
+    }
   }
 }
 </style>

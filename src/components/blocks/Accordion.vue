@@ -17,7 +17,8 @@ const open = ref<number | undefined>(props.firstOpen ? 0 : undefined)
     <v-expansion-panel v-for="(item, i) in items" :key="i" :value="i" eager>
       <v-expansion-panel-title class="accordion__title">{{ item.title }}</v-expansion-panel-title>
       <v-expansion-panel-text>
-        <Prose wide v-html="item.body" />
+        <!-- A plain element: v-html on a component is dropped when prerendering -->
+        <div class="prose is-wide" v-html="item.body" />
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>

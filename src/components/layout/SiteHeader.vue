@@ -1,120 +1,99 @@
 <script setup lang="ts">
 /**
- * Fixed site header. It slides away when scrolling down and comes back when
- * scrolling up. Below 768px the links move into a full-screen menu.
+ * Site header: hides when scrolling down, returns when scrolling up.
+ * Below 960px the links move into a drawer opened from the menu button.
  */
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { navigation } from '../../data/site'
-import { imageInfo } from '../../lib/images'
+import { mdiClose, mdiMenu } from '@mdi/js'
+import { navigation } from '@/data/site'
+import { imageInfo } from '@/lib/images'
 
 const route = useRoute()
-const menuOpen = ref(false)
-const hidden = ref(false)
+const drawer = ref(false)
 const logo = imageInfo('/images/shared/logo-second-try.webp')
-
-let lastY = 0
-function onScroll() {
-  const y = window.scrollY
-  if (menuOpen.value) return
-  hidden.value = y > lastY && y > 100
-  lastY = y
-}
 
 function isActive(to: string) {
   return route.path === to || route.path.startsWith(`${to}/`)
 }
 
-watch(() => route.fullPath, () => {
-  menuOpen.value = false
-  hidden.value = false
-})
-watch(menuOpen, (open) => {
-  document.documentElement.style.overflow = open ? 'hidden' : ''
-})
-
-onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
-onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
+watch(() => route.fullPath, () => (drawer.value = false))
 </script>
 
 <template>
-  <header class="site-header" :class="{ 'is-hidden': hidden && !menuOpen, 'menu-open': menuOpen }">
+  <v-app-bar flat scroll-behavior="hide" :height="88" class="site-header">
     <div class="site-header__inner">
-      <RouterLink to="/" class="site-header__logo">
+      <RouterLink to="/" class="site-header__logo" aria-label="Tom Allen, home">
         <img
           src="/images/shared/logo-second-try.webp"
           :srcset="logo.srcset"
-          sizes="48px"
+          sizes="56px"
           :width="logo.width"
           :height="logo.height"
-          alt="Tom Allen"
+          alt=""
         />
       </RouterLink>
 
-      <nav class="site-header__nav" aria-label="Main">
+      <nav class="site-header__nav d-none d-md-flex" aria-label="Main">
         <RouterLink
           v-for="item in navigation"
           :key="item.to"
           :to="item.to"
           class="site-header__link"
           :class="{ 'is-active': isActive(item.to) }"
+          :aria-current="isActive(item.to) ? 'page' : undefined"
         >
           {{ item.label }}
         </RouterLink>
       </nav>
 
-      <button
-        class="burger"
-        :aria-expanded="menuOpen"
-        aria-controls="mobile-menu"
-        :aria-label="menuOpen ? 'Close menu' : 'Open menu'"
-        @click="menuOpen = !menuOpen"
-      >
-        <span class="burger__line" />
-        <span class="burger__line" />
-      </button>
+      <v-btn
+        class="d-md-none"
+        :icon="drawer ? mdiClose : mdiMenu"
+        variant="text"
+        size="default"
+        :aria-label="drawer ? 'Close menu' : 'Open menu'"
+        :aria-expanded="drawer"
+        aria-controls="site-drawer"
+        @click="drawer = !drawer"
+      />
     </div>
-  </header>
+  </v-app-bar>
 
-  <div id="mobile-menu" class="mobile-menu" :class="{ 'is-open': menuOpen }" :inert="!menuOpen">
-    <nav class="mobile-menu__nav" aria-label="Main">
-      <RouterLink v-for="item in navigation" :key="item.to" :to="item.to" class="mobile-menu__link">
-        {{ item.label }}
-      </RouterLink>
+  <v-navigation-drawer id="site-drawer" v-model="drawer" temporary location="right" width="300" class="site-drawer">
+    <nav aria-label="Main">
+      <v-list nav class="pt-6">
+        <v-list-item
+          v-for="item in navigation"
+          :key="item.to"
+          :to="item.to"
+          :title="item.label"
+          :active="isActive(item.to)"
+          rounded="lg"
+          class="site-drawer__link"
+        />
+      </v-list>
     </nav>
-  </div>
-
-  <div class="site-header-spacer" aria-hidden="true" />
+  </v-navigation-drawer>
 </template>
 
-<style scoped>
-.site-header {
-  --logo-height: 30px;
-  --pad-y: var(--mobile-gutter);
-  --pad-x: var(--mobile-gutter);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  background: var(--white);
-  border-bottom: 1px solid var(--accent);
-  transition: transform 0.14s ease-in-out;
+<style>
+.site-header.v-app-bar {
+  border-bottom: 3px solid var(--amber);
+  background: rgb(255 255 255 / 0.92);
+  backdrop-filter: saturate(1.4) blur(10px);
 }
-.site-header.is-hidden {
-  transform: translateY(-100%);
-}
-.site-header.menu-open {
-  border-bottom-color: transparent;
-  background: transparent;
+.site-header .v-toolbar__content {
+  height: var(--header-h) !important;
 }
 .site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: calc(var(--max-page-width) + var(--pad-x) * 2);
-  margin: 0 auto;
-  padding: var(--pad-y) var(--pad-x);
+  width: 100%;
+  max-width: calc(1200px + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 .site-header__logo {
   display: block;
@@ -122,106 +101,41 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 }
 .site-header__logo img {
   width: auto;
-  height: var(--logo-height);
+  height: 40px;
 }
-
 .site-header__nav {
-  display: none;
+  gap: 2.25rem;
 }
-
-.burger {
+.site-header__link {
   position: relative;
-  width: 47px;
-  height: 37px;
-  padding: 1px 6px;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-.burger__line {
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  height: 1px;
-  background: var(--black);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), top 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.burger__line:first-child {
-  top: 12.5px;
-}
-.burger__line:last-child {
-  top: 23.5px;
-}
-.menu-open .burger__line {
-  top: 18px;
-  left: 11px;
-  right: 11px;
-}
-.menu-open .burger__line:first-child {
-  transform: rotate(45deg);
-}
-.menu-open .burger__line:last-child {
-  transform: rotate(-45deg);
-}
-
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  padding: 83.8px 9vw 0;
-  background: var(--white);
-  opacity: 0;
-  visibility: hidden;
-  transition: visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.mobile-menu.is-open {
-  opacity: 1;
-  visibility: visible;
-}
-.mobile-menu__nav {
-  display: flex;
-  flex-direction: column;
-  gap: 37.4px;
-  margin-top: -83.8px;
-}
-.mobile-menu__link {
+  padding: 0.35rem 0;
   color: var(--black);
-  font-size: 2.072rem;
-  line-height: 1;
+  font-weight: 500;
   text-decoration: none;
 }
-
-.site-header-spacer {
-  height: var(--header-h);
+.site-header__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
 }
-
-@media (min-width: 768px) {
-  .site-header {
-    --logo-height: 61px;
-    --pad-y: 1vw;
-    --pad-x: var(--page-gutter);
-  }
-  .site-header__nav {
-    display: flex;
-    gap: 2.9vw;
-  }
-  .site-header__link {
-    padding: 0.1em 0;
-    color: var(--black);
-    font-size: var(--meta-size);
-    line-height: var(--body-line);
-    text-decoration: none;
-    background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0 1px;
-  }
-  .site-header__link:hover,
-  .site-header__link.is-active {
-    background-size: 100% 1px;
-  }
-  .burger,
-  .mobile-menu {
-    display: none;
+.site-header__link:hover::after,
+.site-header__link.is-active::after {
+  transform: scaleX(1);
+}
+.site-drawer__link .v-list-item-title {
+  font-size: 1.375rem;
+  font-weight: 500;
+}
+@media (min-width: 960px) {
+  .site-header__logo img {
+    height: 56px;
   }
 }
 </style>

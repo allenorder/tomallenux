@@ -3,14 +3,22 @@
  * Contact form handled by Netlify Forms (submissions appear in the Netlify
  * dashboard and can be emailed on). Netlify finds the form in the pre-rendered
  * HTML at deploy time; we submit it with fetch so the page doesn't reload.
+ * The field `name`s are what Netlify stores, so don't rename them.
  */
 import { reactive, ref } from 'vue'
+import type { SubmitEventPromise } from 'vuetify'
+import { mdiSend } from '@mdi/js'
 
 const FORM_NAME = 'contact'
 const fields = reactive({ firstName: '', lastName: '', email: '', message: '', 'bot-field': '' })
 const status = ref<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
-async function submit() {
+const required = (v: string) => !!v.trim() || 'Required'
+const email = (v: string) => /^\S+@\S+\.\S+$/.test(v) || 'Enter a valid email address'
+
+async function submit(event: SubmitEventPromise) {
+  const { valid } = await event
+  if (!valid) return
   status.value = 'sending'
   try {
     const body = new URLSearchParams({ 'form-name': FORM_NAME, ...fields }).toString()
@@ -28,14 +36,17 @@ async function submit() {
 </script>
 
 <template>
-  <div class="contact-form">
-    <p v-if="status === 'sent'" class="contact-form__thanks" role="status">Thank you!</p>
-    <form
+  <v-card class="contact-form">
+    <v-alert v-if="status === 'sent'" type="success" variant="tonal" role="status" title="Thank you!">
+      Your message is on its way. I’ll get back to you soon.
+    </v-alert>
+    <v-form
       v-else
       :name="FORM_NAME"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
+      validate-on="submit lazy"
       @submit.prevent="submit"
     >
       <input type="hidden" name="form-name" :value="FORM_NAME" />
@@ -43,111 +54,41 @@ async function submit() {
         <label>Don’t fill this out: <input v-model="fields['bot-field']" name="bot-field" tabindex="-1" autocomplete="off" /></label>
       </p>
 
-      <fieldset class="field">
-        <legend class="field__title">Name</legend>
-        <div class="name-row">
-          <label class="field__sub">
-            <span class="field__label">First Name <span class="required">(required)</span></span>
-            <input v-model="fields.firstName" name="firstName" type="text" autocomplete="given-name" required />
-          </label>
-          <label class="field__sub">
-            <span class="field__label">Last Name <span class="required">(required)</span></span>
-            <input v-model="fields.lastName" name="lastName" type="text" autocomplete="family-name" required />
-          </label>
-        </div>
-      </fieldset>
+      <v-row dense>
+        <v-col cols="12" sm="6">
+          <v-text-field v-model="fields.firstName" name="firstName" label="First name" autocomplete="given-name" :rules="[required]" required />
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field v-model="fields.lastName" name="lastName" label="Last name" autocomplete="family-name" :rules="[required]" required />
+        </v-col>
+        <v-col cols="12">
+          <v-text-field v-model="fields.email" name="email" type="email" label="Email" autocomplete="email" :rules="[required, email]" required />
+        </v-col>
+        <v-col cols="12">
+          <v-textarea v-model="fields.message" name="message" label="Message" rows="5" auto-grow :rules="[required]" required />
+        </v-col>
+      </v-row>
 
-      <label class="field">
-        <span class="field__title">Email <span class="required">(required)</span></span>
-        <input v-model="fields.email" name="email" type="email" autocomplete="email" required />
-      </label>
-
-      <label class="field">
-        <span class="field__title">Message <span class="required">(required)</span></span>
-        <textarea v-model="fields.message" name="message" required />
-      </label>
-
-      <p v-if="status === 'error'" class="contact-form__error" role="alert">
+      <v-alert v-if="status === 'error'" type="error" variant="tonal" class="mb-4">
         Sorry, something went wrong sending your message. Please try again.
-      </p>
+      </v-alert>
 
-      <button class="btn" type="submit" :disabled="status === 'sending'">Send</button>
-    </form>
-  </div>
+      <v-btn type="submit" color="primary" :loading="status === 'sending'" :append-icon="mdiSend" block>Send</v-btn>
+      <p class="contact-form__note">All fields are required.</p>
+    </v-form>
+  </v-card>
 </template>
 
-<style scoped>
-.contact-form {
-  color: var(--text);
-  font-size: var(--normal-size);
+<style>
+.contact-form.v-card {
+  padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+  border: 1px solid rgb(0 0 0 / 0.08);
+  box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.25);
 }
-form {
-  margin: 0;
-}
-.field {
-  display: block;
-  margin: 0 0 19px;
-  padding: 0;
-  border: 0;
-}
-.field__title {
-  display: block;
-  margin-bottom: 4px;
-  padding: 0;
-  line-height: var(--body-line);
-}
-.name-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 4px;
-}
-.field__sub {
-  flex: 1 1 0;
-  min-width: 0;
-}
-.field__label {
-  display: block;
-  margin-bottom: 0;
-  font-size: 12px;
-  line-height: 1;
-}
-.required {
-  margin-left: 4px;
-  font-size: 12px;
-  opacity: 0.7;
-}
-.field__label .required {
-  font-size: inherit;
-}
-input,
-textarea {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 10px;
-  border: 1px solid var(--black);
-  border-radius: 0;
-  background: var(--field-fill);
-  color: var(--black);
-  font: inherit;
-  line-height: var(--body-line);
-}
-textarea {
-  height: 100px;
-  resize: vertical;
-}
-.btn {
-  margin-top: 1px;
-}
-.btn:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
-.contact-form__thanks {
-  margin: 0;
-  font-size: var(--large-size);
-}
-.contact-form__error {
-  margin: 0 0 16px;
+.contact-form__note {
+  margin: 0.75rem 0 0;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  text-align: center;
 }
 </style>

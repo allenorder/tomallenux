@@ -44,12 +44,14 @@ usePageMeta({
 </template>
 
 <style>
-.prose h3.about__title {
-  margin-top: 0;
-  font-size: var(--fs-h1);
-  letter-spacing: -0.02em;
-}
-.prose .eyebrow em {
-  font-style: normal;
+@layer site {
+  .prose h3.about__title {
+    margin-top: 0;
+    font-size: var(--fs-h1);
+    letter-spacing: -0.02em;
+  }
+  .prose .eyebrow em {
+    font-style: normal;
+  }
 }
 </style>

@@ -25,24 +25,26 @@ const open = ref<number | undefined>(props.firstOpen ? 0 : undefined)
 </template>
 
 <style>
-.accordion .v-expansion-panel {
-  background: transparent;
-  color: inherit;
-  border-bottom: 1px solid currentColor;
-  border-radius: 0 !important;
-}
-.accordion .v-expansion-panel:first-child {
-  border-top: 1px solid currentColor;
-}
-.accordion .v-expansion-panel::after {
-  display: none;
-}
-.accordion__title {
-  padding-inline: 0;
-  font-size: var(--fs-h4);
-  font-weight: 600;
-}
-.accordion .v-expansion-panel-text__wrapper {
-  padding: 0 0 1.25rem;
+@layer site {
+  .accordion .v-expansion-panel {
+    background: transparent;
+    color: inherit;
+    border-bottom: 1px solid currentColor;
+    border-radius: 0 !important;
+  }
+  .accordion .v-expansion-panel:first-child {
+    border-top: 1px solid currentColor;
+  }
+  .accordion .v-expansion-panel::after {
+    display: none;
+  }
+  .accordion__title {
+    padding-inline: 0;
+    font-size: var(--fs-h4);
+    font-weight: 600;
+  }
+  .accordion .v-expansion-panel-text__wrapper {
+    padding: 0 0 1.25rem;
+  }
 }
 </style>

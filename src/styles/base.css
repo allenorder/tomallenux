@@ -1,186 +1,190 @@
 /*
- * Site-wide styles. Vuetify's own CSS lives in cascade layers, so these
- * unlayered rules win over it without !important.
+ * Site-wide styles. All site CSS (here and in components) goes in the `site`
+ * cascade layer, which index.html orders after Vuetify's component styles and
+ * before its utility classes: site rules override Vuetify components, and
+ * utilities such as mt-8 or pa-4 still override site rules.
  */
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--header-h) + 1rem);
-}
+@layer site {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
 
-body {
-  font-family: var(--font);
-  font-size: var(--fs-body);
-  line-height: 1.6;
-  color: var(--black);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    font-family: var(--font);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-img {
-  max-width: 100%;
-}
+  img {
+    max-width: 100%;
+  }
 
-:focus-visible {
-  outline: 3px solid var(--amber);
-  outline-offset: 3px;
-}
+  :focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 3px;
+  }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -100px;
-  z-index: 2000;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  background: var(--black);
-  color: var(--white);
-}
-.skip-link:focus {
-  top: 1rem;
-}
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 2000;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--black);
+    color: var(--white);
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
 
-/* Headline helpers for page-level headings outside Prose */
-.display {
-  margin: 0;
-  font-size: var(--fs-display);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-  text-wrap: balance;
-}
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin: 0 0 1rem;
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.eyebrow::before {
-  content: '';
-  width: 1.75rem;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--amber);
-}
-.lead {
-  font-size: var(--fs-lead);
-  line-height: 1.55;
-}
+  /* Headline helpers for page-level headings outside Prose */
+  .display {
+    margin: 0;
+    font-size: var(--fs-display);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1rem;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--amber);
+  }
+  .lead {
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+  }
 
-/* Keeps a side column (e.g. a chart) in view beside long text on wide screens */
-.case-sticky {
-  top: calc(var(--header-h) + 1.5rem);
-}
+  /* Keeps a side column (e.g. a chart) in view beside long text on wide screens */
+  .case-sticky {
+    top: calc(var(--header-h) + 1.5rem);
+  }
 
-/*
- * Rich text: the contents of <Prose>.
- * Paragraph modifiers: .text-large, .text-small
- * Inline helpers: .text-white, .highlight
- */
-.prose {
-  max-width: var(--measure);
-  overflow-wrap: break-word;
-}
-.prose.is-wide {
-  max-width: none;
-}
-.prose > :first-child {
-  margin-top: 0;
-}
-.prose > :last-child {
-  margin-bottom: 0;
-}
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4 {
-  margin: 1.6em 0 0.6em;
-  color: var(--heading, inherit);
-  font-weight: 600;
-  text-wrap: balance;
-}
-.prose h1 {
-  font-size: var(--fs-h1);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-.prose h2 {
-  font-size: var(--fs-h2);
-  line-height: 1.15;
-  letter-spacing: -0.018em;
-}
-.prose h3 {
-  font-size: var(--fs-h3);
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-}
-.prose h4 {
-  font-size: var(--fs-h4);
-  line-height: 1.35;
-}
-.prose p {
-  margin: 0 0 1em;
-}
-.prose p.eyebrow {
-  font-size: var(--fs-small);
-}
-.eyebrow + :is(h1, h2, h3, h4) {
-  margin-top: 0;
-}
-.prose p.text-large {
-  font-size: var(--fs-lead);
-  line-height: 1.55;
-}
-.prose p.text-small {
-  font-size: var(--fs-small);
-}
-.prose ul,
-.prose ol {
-  margin: 0 0 1em;
-  padding-left: 1.4em;
-}
-.prose li {
-  margin: 0.4em 0;
-}
-.prose li::marker {
-  color: var(--marker, var(--amber));
-  font-weight: 700;
-}
-.prose li > p {
-  margin: 0;
-}
-.prose strong,
-.prose b {
-  font-weight: 700;
-}
-.prose a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--amber);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-}
-.prose a:hover {
-  text-decoration-thickness: 3px;
-}
-.prose blockquote {
-  margin: 0;
-}
-.prose .text-white {
-  color: var(--white);
-}
-.prose .highlight {
-  background: linear-gradient(transparent 60%, rgb(251 175 23 / 0.45) 60%);
+  /*
+   * Rich text: the contents of <Prose>.
+   * Paragraph modifiers: .text-large, .text-small
+   * Inline helpers: .text-white, .highlight
+   */
+  .prose {
+    max-width: var(--measure);
+    overflow-wrap: break-word;
+  }
+  .prose.is-wide {
+    max-width: none;
+  }
+  .prose > :first-child {
+    margin-top: 0;
+  }
+  .prose > :last-child {
+    margin-bottom: 0;
+  }
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    margin: 1.6em 0 0.6em;
+    color: var(--heading, inherit);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .prose h1 {
+    font-size: var(--fs-h1);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .prose h2 {
+    font-size: var(--fs-h2);
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+  }
+  .prose h3 {
+    font-size: var(--fs-h3);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .prose h4 {
+    font-size: var(--fs-h4);
+    line-height: 1.35;
+  }
+  .prose p {
+    margin: 0 0 1em;
+  }
+  .prose p.eyebrow {
+    font-size: var(--fs-small);
+  }
+  .eyebrow + :is(h1, h2, h3, h4) {
+    margin-top: 0;
+  }
+  .prose p.text-large {
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+  }
+  .prose p.text-small {
+    font-size: var(--fs-small);
+  }
+  .prose ul,
+  .prose ol {
+    margin: 0 0 1em;
+    padding-left: 1.4em;
+  }
+  .prose li {
+    margin: 0.4em 0;
+  }
+  .prose li::marker {
+    color: var(--marker, var(--amber));
+    font-weight: 700;
+  }
+  .prose li > p {
+    margin: 0;
+  }
+  .prose strong,
+  .prose b {
+    font-weight: 700;
+  }
+  .prose a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--amber);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .prose a:hover {
+    text-decoration-thickness: 3px;
+  }
+  .prose blockquote {
+    margin: 0;
+  }
+  .prose .text-white {
+    color: var(--white);
+  }
+  .prose .highlight {
+    background: linear-gradient(transparent 60%, rgb(251 175 23 / 0.45) 60%);
+  }
 }

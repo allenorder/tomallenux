@@ -24,10 +24,12 @@ const [first, ...rest] = projects
 </template>
 
 <style>
-.mywork__title {
-  max-width: 14em;
-}
-.mywork__title strong {
-  font-weight: 600;
+@layer site {
+  .mywork__title {
+    max-width: 14em;
+  }
+  .mywork__title strong {
+    font-weight: 600;
+  }
 }
 </style>

@@ -26,13 +26,15 @@ const link = computed(() =>
 </template>
 
 <style>
-.cta.v-btn {
-  letter-spacing: 0.005em;
-}
-.cta .v-btn__append {
-  transition: transform 0.2s ease;
-}
-.cta:hover .v-btn__append {
-  transform: translateX(3px);
+@layer site {
+  .cta.v-btn {
+    letter-spacing: 0.005em;
+  }
+  .cta .v-btn__append {
+    transition: transform 0.2s ease;
+  }
+  .cta:hover .v-btn__append {
+    transform: translateX(3px);
+  }
 }
 </style>

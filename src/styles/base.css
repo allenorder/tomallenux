@@ -79,6 +79,11 @@ img {
   line-height: 1.55;
 }
 
+/* Keeps a side column (e.g. a chart) in view beside long text on wide screens */
+.case-sticky {
+  top: calc(var(--header-h) + 1.5rem);
+}
+
 /*
  * Rich text: the contents of <Prose>.
  * Paragraph modifiers: .text-large, .text-small

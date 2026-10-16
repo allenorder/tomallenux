@@ -44,6 +44,9 @@ const headline = computed(() => props.data[0])
   margin: 0;
   padding: clamp(1.25rem, 1rem + 1vw, 2rem);
   border-radius: var(--radius);
+  background: var(--mist);
+}
+.section--muted .share-meter {
   background: var(--white);
 }
 .share-meter__hero {

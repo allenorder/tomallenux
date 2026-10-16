@@ -4,10 +4,12 @@ import SiteFooter from './components/layout/SiteFooter.vue'
 </script>
 
 <template>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <SiteHeader />
-  <main id="main">
-    <RouterView />
-  </main>
-  <SiteFooter />
+  <v-app>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader />
+    <v-main id="main" tabindex="-1">
+      <RouterView />
+    </v-main>
+    <SiteFooter />
+  </v-app>
 </template>

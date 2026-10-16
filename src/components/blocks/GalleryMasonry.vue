@@ -4,7 +4,7 @@
  * (3 columns on desktop, 2 on mobile), with an optional caption below.
  */
 import { computed } from 'vue'
-import { imageInfo } from '../../lib/images'
+import { imageInfo } from '@/lib/images'
 
 const props = withDefaults(
   defineProps<{
@@ -40,7 +40,7 @@ const mobile = computed(() => distribute(props.mobileColumns))
           <img
             :src="item.src"
             :srcset="item.srcset"
-            :sizes="li ? '33vw' : '50vw'"
+            :sizes="li ? '(max-width: 1264px) 33vw, 400px' : '50vw'"
             :width="item.width"
             :height="item.height"
             :alt="item.alt ?? item.caption ?? ''"
@@ -54,16 +54,15 @@ const mobile = computed(() => distribute(props.mobileColumns))
   </div>
 </template>
 
-<style scoped>
+<style>
 .gallery {
-  --gap: 3px;
-  padding: var(--mobile-gutter);
+  --gap: 0.75rem;
 }
 .gallery__layout {
   display: flex;
   gap: var(--gap);
 }
-.is-desktop {
+.gallery__layout.is-desktop {
   display: none;
 }
 .gallery__col {
@@ -76,26 +75,25 @@ const mobile = computed(() => distribute(props.mobileColumns))
 .gallery__item {
   margin: 0;
 }
-img {
+.gallery__item img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 12px;
 }
-figcaption {
-  padding: 15px 0;
-  color: var(--text);
-  font-size: var(--normal-size);
-  line-height: var(--body-line);
+.gallery__item figcaption {
+  padding: 0.6rem 0.25rem 0.25rem;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
 }
 @media (min-width: 768px) {
   .gallery {
-    --gap: 1.46vw;
-    padding: var(--page-gutter);
+    --gap: 1.25rem;
   }
-  .is-mobile {
+  .gallery__layout.is-mobile {
     display: none;
   }
-  .is-desktop {
+  .gallery__layout.is-desktop {
     display: flex;
   }
 }

@@ -1,23 +1,17 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+/*
+ * Site-wide styles. Vuetify's own CSS lives in cascade layers, so these
+ * unlayered rules win over it without !important.
+ */
 html {
   -webkit-text-size-adjust: 100%;
-  font-size: 16px;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
 }
 
 body {
-  margin: 0;
   font-family: var(--font);
-  font-weight: var(--body-weight);
-  font-size: var(--normal-size);
-  line-height: var(--body-line);
-  letter-spacing: var(--tracking-400);
+  font-size: var(--fs-body);
+  line-height: 1.6;
   color: var(--black);
-  background: var(--light-accent);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,8 +20,9 @@ img {
   max-width: 100%;
 }
 
-a {
-  color: inherit;
+:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
 }
 
 .visually-hidden {
@@ -43,117 +38,144 @@ a {
   position: absolute;
   left: 1rem;
   top: -100px;
-  z-index: 100;
+  z-index: 2000;
   padding: 0.75rem 1rem;
-  background: var(--white);
-  color: var(--black);
+  border-radius: 8px;
+  background: var(--black);
+  color: var(--white);
 }
 .skip-link:focus {
   top: 1rem;
 }
 
-/*
- * Rich text (the contents of a TextBlock).
- * Paragraph modifiers: .text-large, .text-small
- * Inline colour helpers: .text-white, .text-dark, .highlight
- */
-.rte {
-  color: var(--text);
-  overflow-wrap: break-word;
+/* Headline helpers for page-level headings outside Prose */
+.display {
+  margin: 0;
+  font-size: var(--fs-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
-.rte h1,
-.rte h2,
-.rte h3,
-.rte h4 {
-  margin: 2rem 0;
-  color: var(--heading);
-  font-weight: var(--heading-weight);
-  letter-spacing: var(--tracking-500);
-}
-.rte h1 {
-  font-size: var(--h1-size);
-  line-height: var(--h1-line);
-}
-.rte h2 {
-  font-size: var(--h2-size);
-  line-height: var(--h2-line);
-}
-.rte h3 {
-  font-size: var(--h3-size);
-  line-height: var(--h3-line);
-}
-.rte h4 {
-  font-size: var(--h4-size);
-  line-height: var(--h4-line);
-}
-.rte p,
-.rte li {
-  letter-spacing: var(--tracking-400);
-}
-.rte p {
-  margin: 1rem 0;
-  font-size: var(--normal-size);
-  line-height: var(--body-line);
-}
-.rte p.text-large {
-  font-size: var(--large-size);
-}
-.rte p.text-small {
-  font-size: var(--small-size);
-}
-.rte ul,
-.rte ol {
-  margin: 1em 0;
-  padding-left: 40px;
-}
-.rte li > p {
-  margin: 0.5em 0;
-}
-.rte > :first-child {
-  margin-top: 0;
-}
-.rte > :last-child {
-  margin-bottom: 0;
-}
-.rte strong,
-.rte b {
-  font-weight: 700;
-  letter-spacing: var(--tracking-700);
-}
-.rte a {
-  color: inherit;
-  text-decoration: underline;
-}
-.rte .text-white {
-  color: var(--white);
-}
-.rte .text-dark {
-  color: var(--dark-accent);
-}
-.rte .highlight {
-  color: inherit;
-}
-
-/* Buttons (ButtonBlock and the contact form) */
-.btn {
+.eyebrow {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: var(--button-pad-y) var(--button-pad-x);
-  border: 0;
-  border-radius: 0;
-  background: var(--button-bg);
-  color: var(--button-text);
-  font-family: var(--font);
-  font-size: var(--button-size);
-  font-weight: 500;
-  line-height: 1.2em;
-  letter-spacing: calc(0.02em + var(--tracking-500));
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: opacity 0.1s linear;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
-.btn:hover {
-  opacity: 0.8;
+.eyebrow::before {
+  content: '';
+  width: 1.75rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--amber);
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+}
+
+/*
+ * Rich text: the contents of <Prose>.
+ * Paragraph modifiers: .text-large, .text-small
+ * Inline helpers: .text-white, .highlight
+ */
+.prose {
+  max-width: var(--measure);
+  overflow-wrap: break-word;
+}
+.prose.is-wide {
+  max-width: none;
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose > :last-child {
+  margin-bottom: 0;
+}
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  margin: 1.6em 0 0.6em;
+  color: var(--heading, inherit);
+  font-weight: 600;
+  text-wrap: balance;
+}
+.prose h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.prose h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+}
+.prose h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.prose h4 {
+  font-size: var(--fs-h4);
+  line-height: 1.35;
+}
+.prose p {
+  margin: 0 0 1em;
+}
+.prose p.eyebrow {
+  font-size: var(--fs-small);
+}
+.eyebrow + :is(h1, h2, h3, h4) {
+  margin-top: 0;
+}
+.prose p.text-large {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+}
+.prose p.text-small {
+  font-size: var(--fs-small);
+}
+.prose ul,
+.prose ol {
+  margin: 0 0 1em;
+  padding-left: 1.4em;
+}
+.prose li {
+  margin: 0.4em 0;
+}
+.prose li::marker {
+  color: var(--marker, var(--amber));
+  font-weight: 700;
+}
+.prose li > p {
+  margin: 0;
+}
+.prose strong,
+.prose b {
+  font-weight: 700;
+}
+.prose a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.prose a:hover {
+  text-decoration-thickness: 3px;
+}
+.prose blockquote {
+  margin: 0;
+}
+.prose .text-white {
+  color: var(--white);
+}
+.prose .highlight {
+  background: linear-gradient(transparent 60%, rgb(251 175 23 / 0.45) 60%);
 }

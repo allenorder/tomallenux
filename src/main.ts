@@ -2,6 +2,7 @@ import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import { routes } from './routes'
 import { registerComponents } from './components'
+import { createAppVuetify } from './plugins/vuetify'
 
 import './styles/tokens.css'
 import './styles/base.css'
@@ -18,6 +19,7 @@ export const createApp = ViteSSG(
     },
   },
   ({ app }) => {
+    app.use(createAppVuetify())
     registerComponents(app)
   },
 )

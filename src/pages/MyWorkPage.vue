@@ -6,18 +6,28 @@ usePageMeta({
   title: 'Product design',
   description: 'Product design case studies by Tom Allen, a Senior Product Designer from Bristol, UK.',
 })
+
+const [first, ...rest] = projects
 </script>
 
 <template>
-  <PageSection>
-    <FluidGrid :rows="[2, 4]">
-      <FluidBlock d="1/5/5/17" m="1/2/3/10" :z="1">
-        <TextBlock>
-          <h1><strong>Product Design Case Studies</strong></h1>
-        </TextBlock>
-      </FluidBlock>
-    </FluidGrid>
-  </PageSection>
-
-  <ProjectRow v-for="(project, i) in projects" :key="project.title" :project="project" :eager="i === 0" />
+  <Section tone="muted">
+    <p class="eyebrow">My work</p>
+    <h1 class="display mywork__title"><strong>Product Design Case Studies</strong></h1>
+    <ProjectCard :project="first" featured eager />
+    <v-row>
+      <v-col v-for="project in rest" :key="project.title" cols="12" md="6">
+        <ProjectCard :project="project" />
+      </v-col>
+    </v-row>
+  </Section>
 </template>
+
+<style>
+.mywork__title {
+  max-width: 14em;
+}
+.mywork__title strong {
+  font-weight: 600;
+}
+</style>

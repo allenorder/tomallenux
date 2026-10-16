@@ -8,20 +8,19 @@ usePageMeta({
 </script>
 
 <template>
-  <PageSection height="medium">
-    <ClassicLayout narrow>
-      <ClassicRow>
-        <ClassicCol :span="5">
-          <TextBlock>
-            <p class="text-large"><em>Contact</em></p>
-            <h3>Get in touch! ✌️</h3>
-            <p>Bristol, UK</p>
-          </TextBlock>
-        </ClassicCol>
-        <ClassicCol :span="7">
-          <ContactForm />
-        </ClassicCol>
-      </ClassicRow>
-    </ClassicLayout>
-  </PageSection>
+  <Section tone="muted">
+    <v-row align="start">
+      <v-col cols="12" md="5" class="pe-md-12">
+        <Prose>
+          <p class="eyebrow">Contact</p>
+          <h3>Get in touch! ✌️</h3>
+          <p class="text-large">Whether it’s a role, a project or just a chat about design, I’d love to hear from you.</p>
+          <p>Bristol, UK</p>
+        </Prose>
+      </v-col>
+      <v-col cols="12" md="7">
+        <ContactForm />
+      </v-col>
+    </v-row>
+  </Section>
 </template>

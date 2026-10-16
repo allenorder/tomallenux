@@ -13,12 +13,15 @@
 <style>
 .quote-card.v-card {
   position: relative;
-  height: 100%;
   margin: 0;
   padding: 2.25rem 1.75rem 1.5rem;
   border-left: 4px solid var(--amber);
   background: var(--mist);
   color: inherit;
+}
+/* Alone in a grid column, match the height of its neighbours */
+.v-col > .quote-card.v-card:only-child {
+  height: 100%;
 }
 .section--muted .quote-card.v-card {
   background: var(--white);

@@ -6,7 +6,6 @@ import { createAppVuetify } from './plugins/vuetify'
 
 import './styles/tokens.css'
 import './styles/base.css'
-import './styles/layout.css'
 
 export const createApp = ViteSSG(
   App,

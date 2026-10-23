@@ -4,7 +4,8 @@ dist/
 *.local
 .DS_Store
 
-.claude/worktrees§
+# Agent worktrees; kept explicit so they stay ignored if .claude/ is ever tracked
+.claude/worktrees/
 
 # Original, unoptimised images live here; `npm run images` writes web-ready copies to public/images
 images-src/

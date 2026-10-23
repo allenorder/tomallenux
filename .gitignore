@@ -12,3 +12,7 @@ images-src/
 # JetBrains
 .idea/
 .claude/
+
+# Playwright
+playwright-report/
+test-results/
